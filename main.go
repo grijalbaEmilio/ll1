@@ -10,18 +10,26 @@ import (
 func main() {
 	// Creamos una gramática de ejemplo
 
-	prods := map[string][]string{
+	/* prods := map[string][]string{
 		"S": {"T E n"},
 		"E": {"+ T E", "- T E", "λ"},
 		"T": {"F Y"},
 		"Y": {"* F Y", "/ F Y", "λ"},
 		"F": {"( S )", "num", "id"},
+	} */
+
+	prods := map[string][]string{
+		"S": {"T E"},
+		"E": {"+ T E", "λ"},
+		"T": {"F Y"},
+		"Y": {"* F Y", "λ"},
+		"F": {"( S )", "num"},
 	}
 
 	grammar := model.Grammar{
 		Productions:  prods,
 		NonTerminals: []string{"S", "E", "T", "Y", "F"},
-		Terminals:    []string{"*", "+", "-", "/", "(", ")", "num", "id"},
+		Terminals:    []string{"*", "+", "(", ")", "num"},
 		StartSymbol:  "S",
 	}
 
@@ -32,7 +40,7 @@ func main() {
 	}
 
 	// Obtenemos los primeros de cada símbolo no terminal
-	first, err := controller.First(&grammar)
+	first, err := controller.Firsts(&grammar)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -43,7 +51,7 @@ func main() {
 	fmt.Println()
 
 	// Obtenemos los siguientes de cada símbolo no terminal
-	follows, err := controller.Follow(&grammar)
+	follows, err := controller.Follows(&grammar)
 
 	if err != nil {
 		fmt.Println(err)

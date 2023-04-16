@@ -6,7 +6,7 @@ import (
 	"github.com/grijalbaEmilio/ll1/src/model"
 )
 
-func First(grammar *model.Grammar) (map[string][]string, error) {
+func Firsts(grammar *model.Grammar) (map[string][]string, error) {
 	firsts := map[string][]string{}
 	for _, symbol := range grammar.NonTerminals {
 		first, err := grammar.First(symbol)
@@ -21,7 +21,7 @@ func First(grammar *model.Grammar) (map[string][]string, error) {
 	return firsts, nil
 }
 
-func Follow(grammar *model.Grammar) (map[string][]string, error) {
+func Follows(grammar *model.Grammar) (map[string][]string, error) {
 	follows := map[string][]string{}
 	for _, symbol := range grammar.NonTerminals {
 		follow, err := grammar.Follow(symbol)
